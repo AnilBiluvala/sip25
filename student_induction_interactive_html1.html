@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vidyavardhaka College of Engineering - 2025</title>
+  <style>
+    body{margin:0;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:linear-gradient(180deg,#071028 0%, #0f1b2b 60%);color:#e6eef8;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+    header{width:100%;display:flex;align-items:center;gap:16px;padding:20px;background:rgba(255,255,255,0.04);box-shadow:0 4px 12px rgba(0,0,0,0.4)}
+    header img{width:80px;height:80px;object-fit:contain;margin-left:20px}
+    header h1{font-size:28px;color:#e6eef8;margin:0;font-weight:800}
+    .container{background:rgba(255,255,255,0.04);padding:32px;border-radius:16px;box-shadow:0 8px 28px rgba(2,6,23,0.6);width:100%;max-width:500px;text-align:center;margin-top:40px}
+    h2.subheading{font-size:18px;margin-bottom:20px;color:#e6eef8;font-weight:600}
+    label{display:block;margin:12px 0 6px;font-size:14px;color:#98a2b3;text-align:left}
+    select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:#0b1220;color:#e6eef8;font-size:14px}
+    button{margin-top:20px;padding:12px;width:100%;background:#7c3aed;color:white;font-weight:600;border:none;border-radius:10px;cursor:pointer;transition:background .2s}
+    button:hover{background:#6d28d9}
+  </style>
+</head>
+<body>
+  <header>
+    <img src="vvce-logo - Copy.png" alt="VVCE Logo" />
+    <h1>Vidyavardhaka College of Engineering</h1>
+  </header>
+
+  <div class="container">
+    <h2 class="subheading">Choose link to upload day-wise reports</h2>
+
+    <label for="team">Select Team</label>
+    <select id="team">
+      <option value="">-- Choose Team --</option>
+    </select>
+
+    <label for="category">Select Category</label>
+    <select id="category">
+      <option value="">-- Choose Category --</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+      <option value="E">E</option>
+      <option value="F">F</option>
+      <option value="G">G</option>
+    </select>
+
+    <button id="open">Open</button>
+  </div>
+
+  <script>
+    const teams = {
+      'Team-1': {A:'1EIN6114q19PU7JkWKAidpdKcx5y7kjoc',B:'1b1DHpBGXn0dKyBDeTEmm-s3NzxybwRG6',C:'1-_KPIK5mS9329R0aPMdC_NbAvDe0Chwf',D:'1UbArldNfvTTN_acOP0xctjYhdK5q3tUS',E:'1o0osQRv7-y4VLqIKmz2FO6JlTa7l5zps',F:'18bG6rAiF6LQBQlfTV8dME7R1L_9IozeD',G:'1n9QvNwI6ujevK-DnKuk7btd7xHUy-ALl'},
+      'Team-2': {A:'10WK7HtjS2iK01SnO1R8uWUF-AwsTeFZA',B:'10bY8gaJBagAQGOB923Vw1m6qnWCUnWBh',C:'1-i5RJawWJqPEUz99-4MZ5DEaqrMUh-D2',D:'1KXYQg5BLSsnIboImJ41FCa69_TgEwWWd',E:'1idn7STxUu7YGWhJU8Q-48t2NhUfn6H9i',F:'1adHKR4w1bfISwOjy5l8m5TBlKU3jOIRg',G:'1wAn55HdkOX7pYQ-S_9qsE9VHS1SB05Er'},
+      'Team-3': {A:'1ctb7LPQ7vbOOw6mnN3T39x-aY8iW2uN8',B:'10LMUb4__t4MROQzwtbs0Ag32mpvpoprx',C:'1i33k6bKyhSKVW7ds9wu9vUdOtsjZPHkq',D:'1kEu1OCJnD9wnp8AU-fzw2ajFtXmMaQEv',E:'16zgVW36Q-ZGOrolguy-IUcOtC-4LvYPS',F:'1pUEwg8ugOs1j66tuL5_4KAMGBT-XzupW',G:'1cY1HmGUdjwfZ-v_2Qs84JIXJhXqx1fIQ'},
+      'Team-4': {A:'1eCZrJtrgN_GQe-jrkFdWyWLYkRgdoMAi',B:'1X0mq2i87m8NxSrqOknwcX6IEf6e6t-mh',C:'1MR4jjeGDu9jaWZaF7UphZSTFLsOYuwHn',D:'1RlhsQH57cXTAE9pVQ64vH75JkunoN4vP',E:'1Vd-NqfENNsdL1qfkY0Oe5XxDO1pkEnyg',F:'1IACy1wMeXGSq1XfRfMq-9X00q5EhnPGE',G:'1rJg23TiEh0GWLhYBd3JdvIjl9ZeirclD'},
+      'Team-5': {A:'1TehgnW3QANwynmcHAKSQ-CcIvkem34cI',B:'19UkfpfzjwnJnAi8G7CEj1riPO8bn7FG1',C:'19bjRrh6V7W_kfh_kKuv_xfURRNyXfkWM',D:'1fRpY0OA5fnx_8yEsgEaCyn3e29DgZZAO',E:'1DCggXYdeG7ncu3mubnihMvgoCs9uDFK0',F:'1Oex35Clo7iS1W-B0Y7xvSwLUB8-TdDw9',G:'1hGbldgGYwQ8GpwPdQ2whTm2EZS5Ah3y8'},
+      'Team-6': {A:'17nLxcrXhZkhXlqwT_EZ1KhhQSLV-MWsy',B:'1qXhtGHJtY_nz_IbAaIeM-odJfNj1pHQu',C:'1RmiiNtB8AWdbQr3XOnZpdM7lXU9FtWnO',D:'1yAXVrBrk0mH670DcNrIL6UWQfporuEXB',E:'1VPmZmXXcxQSrIF9ZC9Xiuc_Bfaaj2lwB',F:'1yZEgJeaFeWQVisK0P2zlOGt1tUV1UwfF',G:'1ITK7jbAsHutBe4Cj7_ZIs0BwHP47c86C'},
+      'Team-7': {A:'1HJz0Ci0QhXj02ByBqEmQBiUSJZWMkazi',B:'1Iey2a2EFpGpsXCsBXQxu29vWup4NmQl1',C:'1gAt5uZaRkYU8vjkCGnl5iq2D7xMCTha9',D:'1o3w0PGceaLfvVPCM8PAxIB34Hiw8yEbm',E:'1BhR-EbLPvqrzkCOl9dKzJvmCGjiBinDT',F:'1SK06jEIvJSRcj-GVSE-QAdjmQPukchnH',G:'1quiJDSWS7YWiQzgLLrAFFmDSJ9JWgidE'},
+      'Team-8': {A:'12tNZmsfSt4LWR9_vWEtJSRoSGR8ywJwd',B:'1s-5i8VgR6r_pgmJsgi2-7kwW0UuCsWEJ',C:'1MRwR6TFHAONpLOJcDmEg-og8ZoFcLYX6',D:'1PX4s4hFdw4mu52UWyHWcRaGrGiorC1_u',E:'1n9BuVp9KmZytloqnue8OIRCppxAHhoNC',F:'1fbmkEPh457Ux-tUPg95ko0BQSr-C_5NY',G:'1lwSjbmI7ofnR15bQaMIM6onkA3chKnIO'},
+      'Team-9': {A:'1F5Ir30Hdm59UGTZZi1m2FWUYn6wOpl4L',B:'1MC7k7jntY1nheIPpTzXXFT3uNqoosM6w',C:'1vGAFNFrj7_IKunr2MWXfYMWoSmxPpT-E',D:'1vXAcJ0T56Z0YEYfG0q5u76ipOlMkMmGp',E:'1mHzrVvIghjWGzbyBigPU8SiipdHsAiMw',F:'1NNMeCLkDXMSeH-nHtkJwU3Z-kkz7vboU',G:'1KMrj97-vBy5YOonQ2nXlXvR-h0wSErNV'},
+      'Team-10': {A:'1T2F71AfQchrSFCt4jENg4yTeejnPjoFx',B:'1C91eb1a6GhU79GsY-zsGrz1Ms_53Z1pP',C:'1TTfR4TlKe-c2ibXHazx8wZeDZhfLre1c',D:'1fnUpl1gQ_vvh8mhG9_JUElgBrc1KVYCz',E:'1dHSOAHlM9Qw1Nv80gtm3PFdf3e6IKLmA',F:'13EHc5xKEO2Jih-3jSWGFuKyqEl9LjfbS',G:'141ScVVMpRixxds_1o8UQeZAJtW_vYpxA'}
+    };
+
+    const teamSelect = document.getElementById('team');
+    Object.keys(teams).forEach(t=>{
+      const opt=document.createElement('option'); opt.value=t; opt.textContent=t; teamSelect.appendChild(opt);
+    });
+
+    document.getElementById('open').addEventListener('click',()=>{
+      const t = teamSelect.value;
+      const c = document.getElementById('category').value;
+      if(!t || !c){alert('Please select both Team and Category'); return;}
+      const id = teams[t][c];
+      if(id){window.open(`https://drive.google.com/drive/folders/${id}?usp=drive_link`,'_blank')}
+      else{alert('Invalid selection');}
+    });
+  </script>
+</body>
+</html>
